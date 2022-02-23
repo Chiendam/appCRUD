@@ -1,0 +1,108 @@
+
+extends layout
+block content
+    div(class="container")
+        if users
+        h1 LIST USER
+        //- button( type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal") Launch demo modal
+        //- button(class="btn createBtn" data-toggle="modal" data-target="#myModal") Thêm mới
+        button(class="btn btn-info" type="button" data-toggle="modal" data-target="#modalAdd") Add
+        table(class="table table-striped")
+            tr
+            th #
+            th full name 
+            th email
+            th action
+            - let index = skip * 1;
+            each val in users
+                - index++
+                tr 
+                    td= index
+                    td= val.fullname 
+                    td= val.email
+                    td
+                        div(class="divBtn")
+                            button(class="btn btn-primary editBtn" type="button" data-toggle="modal" data-target="#modalEdit") Edit
+                            button(class="btn btn-danger deleteBtn" type="button" id="btnDeleteUser" data) Delete
+
+        - const numberPage = countPage * 1
+        ul(class="pagination")
+            if currentPage === 1
+                li(class="page-item disabled")
+                    span(class="page-link") Previous
+            else
+                li(class="page-item")
+                    a(class="page-link" href=`/users?page=${currentPage-1}`) Previous
+            - for (let page = 1; page <= numberPage; page++)
+                if page == currentPage
+                    li(class="page-item active")
+                        span(class="page-link") #{page}
+                            span(class="sr-only") current
+                else
+                    li(class="page-item")
+                        a(class="page-link" href=`/users?page=${page}`) #{page}
+            if numberPage === currentPage
+                li(class="page-item disabled")
+                    span(class="page-link") Next
+            else
+                li(class="page-item")
+                    a(class="page-link" href=`/users?page=${currentPage+1}`) Next
+
+        div(class="modal fade" id="myModal" role="dialog" )
+            div(class="modal-dialog")
+                div( class="modal-content")
+                    div( class="modal-header")
+                        button( type="button" class="close" data-dismiss="modal") x
+                        h4(class="modal-title") Create User
+                    div(class="modal-body" name='formCreate')
+                        h3 From register
+                        label Username:
+                        input(type='text', name='username', value='' id='username')
+                        br
+                        label Password:
+                        input(type='password', name='password', value='' id='password')
+                        br
+                        input(type='submit', value='Submit', class='submitForm' id='btnCreateUser')
+                    button(type="button" class="btn btn-default" data-dismiss="modal") Close
+
+        div( class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true")
+            div( class="modal-dialog" role="document")
+                div( class="modal-content")
+                    div( class="modal-header")
+                        h5(class="modal-title" id="exampleModalLabel")  Modal title
+                        button( type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            span( aria-hidden="true") &times;
+                    div( class="modal-body")
+                        div( class="form-group")
+                            label( for="fullNameAdd") FullName
+                            input( type="text" class="form-control" id="fullNameAdd" placeholder="Enter full name" name="fullNameAdd")
+                        div( class="form-group")
+                            label( for="emailAdd") Email
+                            input( type="email" class="form-control" id="emailAdd" aria-describedby="emailHelp" placeholder="Enter email" name="emailAdd")
+                        div( class="form-group")
+                            label( for="passwordAdd") Password
+                            input( type="password" class="form-control" id="passwordAdd" placeholder="Password" name="passwordAdd")
+                    div( class="modal-footer")
+                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                        button(type="button" class="btn btn-primary" id="btnSave") Save changes
+                
+        div( class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true")
+            div( class="modal-dialog" role="document")
+                div( class="modal-content")
+                    div( class="modal-header")
+                        h5(class="modal-title" id="exampleModalLabel")  Modal title
+                        button( type="button" class="close" data-dismiss="modal" aria-label="Close")
+                            span( aria-hidden="true") &times;
+                    div( class="modal-body")
+                        div( class="form-group")
+                            label( for="exampleInputEmail1") FullName
+                            input( type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter full name")
+                        div( class="form-group")
+                            label( for="exampleInputEmail1") Email
+                            input( type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email")
+                    div( class="modal-footer")
+                        button(type="button" class="btn btn-secondary" data-dismiss="modal") Close
+                        button(type="button" class="btn btn-primary") Update changes
+
+    script(src="/js/user.js")
+

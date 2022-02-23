@@ -1,0 +1,31 @@
+extends layout
+
+block content
+    div(class="ftco-section")
+        div(class="container")
+            div(class="row justify-content-center")
+                div(class="col-md-7 col-lg-5")
+                    div(class="wrap")
+                        div(class="img" style="background-image: url(/template/images/bg-1.jpg);")
+                        div(class="login-wrap p-4 p-md-5")
+                            div(class="d-flex")
+                                div(class="w-100")
+                                    h2(class="mb-4" style="text-align:center;") #{title}
+                            div(class="signin-form")
+                                div(class="form-group mt-3")
+                                    input(type="text" class="form-control" required id="fullname")
+                                    label(class="form-control-placeholder" for="fullname") Fullname
+                                div(class="form-group mt-3")
+                                    input(type="text" class="form-control" required id="email")
+                                    label(class="form-control-placeholder" for="email") Email
+                                div(class="form-group")
+                                    input(id="password-field" type="password" class="form-control" required ) 
+                                    label(class="form-control-placeholder" for="password") Password
+                                    span(toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password")
+                                div(class="form-group")
+                                    button(id="btnSignup" type="submit" class="form-control btn btn-primary rounded submit px-3") Sign Up
+                            p(class="text-center")
+                                a(data-toggle="tab" href="/users/signup") Login
+
+    script(src="/js/user.js")
+    
